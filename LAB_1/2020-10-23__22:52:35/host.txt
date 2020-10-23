@@ -1,0 +1,3 @@
+HOSTNAME: vpc26
+SYSTEM VERSION="16.04.7 LTS (Xenial Xerus)"
+Kernel: Linux 4.4.0-137-generic
