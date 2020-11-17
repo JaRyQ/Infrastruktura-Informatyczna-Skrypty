@@ -17,14 +17,19 @@ echo "Twoj login do systemu: "$login
 echo "zapamietaj podane przez Ciebie haslo!!!"
 
 #tworzenie uzytkownika
-#szyfrowanie hasla
-#encr=mkpasswd $PASSWORD
 
-#echo $encr
-useradd -m  -s /bin/bash $login
-echo $login:$PASSWORD | chpasswd
-#echo -e $PASSWORD | passwd  $login
-#public_html -> private_html zawarte w /etc/skel V
-#welcome message zawarte w /etc/skel/.bashrc V
-# skonfigurowane aliasy w /etc/skel/.bashrc V
+useradd -m -s /bin/bash $login
+if [ "$?" = "0" ]
+  then
+      sed -i -e "s/#USERNAME#/${login}/g" /home/${login}/public_html/private_html/.htaccess
+      echo $login:$PASSWORD | chpasswd
+      
+	usermod -G ftp,users $login
+      usermod -g users $login
+      groupdel $login
+      exit 0
+fi
+
+# chmod 751 $login  /home/$login/public_html/private_html/.htpasswd
+
 
